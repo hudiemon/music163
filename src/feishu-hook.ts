@@ -16,8 +16,8 @@ export const feishuHook = (text: any) => {
             headers: {
                 'content-type': 'application/json',
             },
-        }).then(({data}: any) => {
-        if (data.StatusMessage === 'success' && data.StatusCode === 0)
+        }).then(({StatusMessage,StatusCode}) => {
+        if (StatusMessage === 'success' && StatusCode === 0)
             console.log('🤖【飞书机器人】消息发送成功')
     })
 }
