@@ -1,7 +1,3 @@
-export const message = {
-    text: ['网易云音乐'],
-    push(str: string) {
-        console.log(str)
-        this.text.push(str)
-    },
-}
+import {Message} from "@hudiemon/webhook";
+
+export const message = new Message({title: "网易云音乐"})

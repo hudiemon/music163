@@ -1,16 +1,15 @@
-import './axios';
-import {signIn} from './sign-in';
-import {message} from './message';
-import {feishuHook} from './feishu-hook';
+import cookie from 'cookie'
+import {message} from './message'
+import {checkIn} from './check-in'
+import {request} from './request'
 
 const main = async () => {
     if (!process.env.COOKIE) {
-        message.push('❌【cookie】未设置');
+        message.error('【cookie】未设置');
         return
     }
-    // await signIn({type: 0})
-    await signIn({type: 1})
+    const {__csrf} = cookie.parse(process.env.COOKIE)
+    request.defaults.params = {csrf_token: __csrf}
+    await checkIn()
 };
-main().finally(() => {
-    feishuHook(message.text)
-})
+main().finally(message.finally)
