@@ -1,32 +1,21 @@
-import forge from 'node-forge'
 import {request} from './request'
-import {message} from "./message"
+import {asrsea, getEmoji} from "./utils";
 
-const encrypt = (message: string, key: string) => {
-    const cipher = forge.cipher.createCipher('AES-CBC', key)
-    cipher.start({
-        iv: "0102030405060708"
-    });
-    let add = 16
-    const length = 16
-    const count = message.length
-    if (count % 6 !== 0) {
-        add = length - (count % length)
-    }
-    const pad = String.fromCharCode(add)
-    console.log('pad',pad)
-    console.log(count + (pad * add))
-    cipher.update()
-    cipher.finish()
-    console.log(cipher.output)
-    // const encrypted = forge.util.encode64(cipher.output)
-}
-
-export const checkIn = async () => {
-    encrypt('{"type":0}', "0CoJUm6Qyw8W8jud")
-    // encrypt(, "TA3YiYCfY2dDJQgg")
-    // const data = await request.post('/weapi/point/dailyTask', "params=NxtH9Gtgf2%2FFSzA7OZkUV%2FTOUxtd1PFki%2Fx1hUoUj1e15Y4JG0tSSL5DdWNiAm%2Fc1W6vhYlW3DKHpfmo4uCKjpZDUuRTn45jQVC7Km%2FupnyU%2BP0VleYjWDsxWgPei6f3U3hGJ9nSHu%2BlKJWR0RcQFg%3D%3D&encSecKey=d324de947156ac6ae6af517fc283e3cbd2ab52f2c549aefe0086fb2c7916942110f3a4a6bbe1dcc6cea654c4adde12e570fd6018826777bd581237b201b2519a67d6656a9b4798740f5b242ce0719c85ef80076bab8a488c71cee62516c4419636af971765e3e5d2120b9f34288e2c1ae0d492f666aaa2983bd75325c3fe3206")
+const checkToken = "9ca17ae2e6ffcda170e2e6ee96ce7b8cb18fd7ce42aa8e8ba3c55e868f9b82c54790a696b4ed60edbb00b7f72af0feaec3b92a939dfd8fee64968f98ccee4b839f8aa2c54b909a8383ed429a87ffbbe65a8bb3ee9e"
+export const checkIn = async (csrf_token: string) => {
+    const {
+        encText,
+        encSecKey
+    } = asrsea(JSON.stringify(
+        {
+            "type": 1,
+            "checkToken": "9ca17ae2e6ffcda170e2e6ee96ce7b8cb18fd7ce42aa8e8ba3c55e868f9b82c54790a696b4ed60edbb00b7f72af0feaec3b92a939dfd8fee64968f98ccee4b839f8aa2c54b909a8383ed429a87ffbbe65a8bb3ee9e",
+            "csrf_token": "f3ae8e759715a6ce6d2bf2534529e0aa"
+        }
+    ), getEmoji(["流泪", "强"]), getEmoji(), getEmoji(["爱心", "女孩", "惊恐", "大笑"]))
+    const data = await request.post('https://music.163.com/weapi/point/dailyTask', {
+        params: encText,
+        encSecKey
+    })
     // console.log(data)
-    // {msg, point}
-    // message.info(`🎉【签到】${point ?? msg}`);
 }
