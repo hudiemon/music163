@@ -17,6 +17,5 @@ export const request = axios.create({
 })
 
 request.interceptors.response.use((response) => {
-    console.log(response)
     return response.data
 })

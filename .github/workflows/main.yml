@@ -7,7 +7,7 @@ on:
 
 env:
   COOKIE: ${{ secrets.COOKIE }}
-  FEISHU_WEB_HOOK: ${{ secrets.FEISHU_WEB_HOOK }}
+  WEBHOOK_FEISHU: ${{ secrets.WEBHOOK_FEISHU }}
 
 jobs:
   main:
@@ -17,5 +17,5 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16.x
-      - name: run
-        run: npm install && npm run start
+      - name: 执行脚本
+        run: node ncc/index.js
