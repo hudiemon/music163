@@ -33,8 +33,8 @@
     "father": "4.1.0"
   },
   "dependencies": {
-    "@hudiemon/rsa": "0.0.3",
-    "@hudiemon/utils": "^0.0.4",
+    "@hudiemon/rsa": "1.0.2",
+    "@hudiemon/utils": "0.0.4",
     "@hudiemon/webhook": "0.0.6",
     "axios": "1.1.3",
     "cookie": "0.5.0",
