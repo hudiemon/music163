@@ -1,6 +1,6 @@
 import cookie from 'cookie'
 import {message} from './message'
-import {checkIn_backup} from './check-in'
+import {checkIn} from './check-in'
 import {request} from './request'
 import {sleep} from '@hudiemon/utils'
 
@@ -11,8 +11,8 @@ const main = async () => {
     }
     const {__csrf: csrf_token} = cookie.parse(process.env.COOKIE)
     request.defaults.params = {csrf_token}
-    await checkIn_backup(0, csrf_token)
-    await sleep(1000, 2000)
-    await checkIn_backup(1, csrf_token)
+    await checkIn(0, csrf_token)
+    await sleep(1500, 2500)
+    await checkIn(1, csrf_token)
 };
 main().finally(message.finally)
