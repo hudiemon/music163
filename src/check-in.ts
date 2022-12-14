@@ -17,9 +17,9 @@ export const checkIn = async (type: 0 | 1, csrf_token: string) => {
         return
     }
     if (code === -2) {
-        globalMessage.success(`🍩【签到】${msg}`)
+        globalMessage.info(`🍩【签到】${msg}`)
     } else if (code === 200) {
-        globalMessage.success(`🍩【签到】操作成功，获得${point}云贝`)
+        globalMessage.info(`🍩【签到】操作成功，获得${point}云贝`)
     } else if (code === 403) {
         globalMessage.warning(`【签到】${message}`)
     } else {
